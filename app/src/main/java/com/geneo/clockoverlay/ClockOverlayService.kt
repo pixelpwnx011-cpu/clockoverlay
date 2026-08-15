@@ -10,8 +10,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.PixelFormat
-import android.media.RingtoneManager
-import android.net.Uri
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
@@ -36,7 +35,7 @@ import kotlin.math.abs
  * board (TYPE_APPLICATION_OVERLAY), lets the user drag it anywhere on screen, updates
  * once a minute (hour:minute display, no seconds), and re-colors itself so it stays
  * readable against whatever is behind it. Also announces period changes with a
- * popup + 2-second alarm sound, based on the editable schedule from Prefs.
+ * popup + bell sound, based on the editable schedule from Prefs.
  */
 class ClockOverlayService : Service() {
 
@@ -50,7 +49,7 @@ class ClockOverlayService : Service() {
     // ---- period-end popup ----
     private var popupView: View? = null
     private var lastCheckedMinute = -1
-    private var activeRingtone: android.media.Ringtone? = null
+    private var activeMediaPlayer: MediaPlayer? = null
 
     private val tickRunnable = object : Runnable {
         override fun run() {
@@ -89,7 +88,7 @@ class ClockOverlayService : Service() {
         overlayView = null
         popupView?.let { try { windowManager.removeView(it) } catch (_: Exception) {} }
         popupView = null
-        activeRingtone?.let { try { it.stop() } catch (_: Exception) {} }
+        stopBellSound()
         Prefs.setEnabled(this, false)
     }
 
@@ -238,35 +237,44 @@ class ClockOverlayService : Service() {
         )
         popupParams.gravity = Gravity.CENTER
 
-        windowManager.addView(view, popupParams)
-
+        // Set the real text BEFORE adding the window -- this is what actually
+        // determines how big WRAP_CONTENT measures the window. Setting it after
+        // addView() left the window sized to the XML placeholder text.
         view.findViewById<TextView>(R.id.tvPopupMessage).text = message
-        windowManager.updateViewLayout(view, popupParams)
+
+        windowManager.addView(view, popupParams)
 
         view.findViewById<Button>(R.id.btnPopupOk).setOnClickListener {
             popupView?.let { v -> try { windowManager.removeView(v) } catch (_: Exception) {} }
             popupView = null
-            activeRingtone?.let { try { it.stop() } catch (_: Exception) {} }
+            stopBellSound()
         }
 
-        playAlarmSound()
+        playBellSound()
     }
 
-    /** Plays the device's default alarm sound for exactly 2 seconds, then stops it. */
-    private fun playAlarmSound() {
+    /** Plays a synthesized bell-ring sound (bundled as res/raw/bell.wav) once. */
+    private fun playBellSound() {
         try {
-            activeRingtone?.let { try { it.stop() } catch (_: Exception) {} }
-            val soundUri: Uri = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM)
-                ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-            val ringtone = RingtoneManager.getRingtone(this, soundUri)
-            activeRingtone = ringtone
-            ringtone?.play()
-            handler.postDelayed({
-                try { ringtone?.stop() } catch (_: Exception) {}
-            }, 2000)
+            stopBellSound()
+            val mp = MediaPlayer.create(this, R.raw.bell)
+            activeMediaPlayer = mp
+            mp?.setOnCompletionListener {
+                it.release()
+                if (activeMediaPlayer == it) activeMediaPlayer = null
+            }
+            mp?.start()
         } catch (_: Exception) {
-            // No alarm sound configured on this device -- the popup still shows.
+            // Playback failed on this device -- the popup still shows.
         }
+    }
+
+    private fun stopBellSound() {
+        activeMediaPlayer?.let {
+            try { if (it.isPlaying) it.stop() } catch (_: Exception) {}
+            try { it.release() } catch (_: Exception) {}
+        }
+        activeMediaPlayer = null
     }
 
     // ---------- foreground notification ----------
