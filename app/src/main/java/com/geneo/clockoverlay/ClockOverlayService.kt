@@ -227,9 +227,17 @@ class ClockOverlayService : Service() {
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         else @Suppress("DEPRECATION") WindowManager.LayoutParams.TYPE_PHONE
 
+        // Fixed pixel size (converted from dp) instead of WRAP_CONTENT -- WRAP_CONTENT
+        // on a TYPE_APPLICATION_OVERLAY window has proven unreliable at correctly
+        // measuring multi-line text across attempts, so a generous fixed size removes
+        // the guesswork: the box is always big enough regardless of message length.
+        val density = resources.displayMetrics.density
+        val popupWidthPx = (460 * density).toInt()
+        val popupHeightPx = (240 * density).toInt()
+
         val popupParams = WindowManager.LayoutParams(
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.WRAP_CONTENT,
+            popupWidthPx,
+            popupHeightPx,
             overlayType,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -237,9 +245,6 @@ class ClockOverlayService : Service() {
         )
         popupParams.gravity = Gravity.CENTER
 
-        // Set the real text BEFORE adding the window -- this is what actually
-        // determines how big WRAP_CONTENT measures the window. Setting it after
-        // addView() left the window sized to the XML placeholder text.
         view.findViewById<TextView>(R.id.tvPopupMessage).text = message
 
         windowManager.addView(view, popupParams)

@@ -62,14 +62,15 @@ object Prefs {
      *  and Extra Class -- used the first time the app runs, and restorable any time
      *  from the Edit Schedule screen's "Reset to defaults" button. */
     val DEFAULT_SCHEDULE: List<ScheduleSlot> = listOf(
-        ScheduleSlot("Period 1", 8 * 60 + 35, 9 * 60 + 5),    // 0835-0905
-        ScheduleSlot("Period 2", 9 * 60 + 5, 9 * 60 + 35),    // 0905-0935
-        ScheduleSlot("Period 3", 9 * 60 + 35, 10 * 60 + 5),   // 0935-1005
-        ScheduleSlot("Period 4", 10 * 60 + 5, 10 * 60 + 35),  // 1005-1035
-        ScheduleSlot("Period 5", 11 * 60 + 30, 12 * 60),      // 1130-1200
-        ScheduleSlot("Period 6", 12 * 60, 12 * 60 + 30),      // 1200-1230
-        ScheduleSlot("Period 7", 12 * 60 + 30, 13 * 60),      // 1230-1300
-        ScheduleSlot("Period 8", 13 * 60, 13 * 60 + 15),      // 1300-1315
+        ScheduleSlot("Period 1", 8 * 60 + 35, 9 * 60 + 5),     // 0835-0905
+        ScheduleSlot("Period 2", 9 * 60 + 5, 9 * 60 + 35),     // 0905-0935
+        ScheduleSlot("Period 3", 9 * 60 + 35, 10 * 60 + 5),    // 0935-1005
+        ScheduleSlot("Period 4", 10 * 60 + 5, 10 * 60 + 35),   // 1005-1035
+        ScheduleSlot("Lunch Break", 10 * 60 + 35, 10 * 60 + 55), // 1035-1055
+        ScheduleSlot("Period 5", 10 * 60 + 55, 11 * 60 + 30),  // 1055-1130
+        ScheduleSlot("Period 6", 11 * 60 + 30, 12 * 60 + 5),   // 1130-1205
+        ScheduleSlot("Period 7", 12 * 60 + 5, 12 * 60 + 40),   // 1205-1240
+        ScheduleSlot("Period 8", 12 * 60 + 40, 13 * 60 + 15),  // 1240-1315
         ScheduleSlot("Diary Checking", 13 * 60 + 15, 13 * 60 + 30), // 1315-1330
         ScheduleSlot("Extra Class", 13 * 60 + 30, 14 * 60 + 15),    // 1330-1415
     )
