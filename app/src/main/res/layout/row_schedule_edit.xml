@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp">
+
+    <TextView
+        android:id="@+id/tvSlotLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="Period 1" />
+
+    <EditText
+        android:id="@+id/etStart"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:gravity="center"
+        android:hint="HHMM"
+        android:inputType="number"
+        android:maxLength="4"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="–"
+        android:layout_marginEnd="6dp" />
+
+    <EditText
+        android:id="@+id/etEnd"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:gravity="center"
+        android:hint="HHMM"
+        android:inputType="number"
+        android:maxLength="4"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/btnRemoveRow"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:text="✕"
+        android:textSize="15sp" />
+
+</LinearLayout>

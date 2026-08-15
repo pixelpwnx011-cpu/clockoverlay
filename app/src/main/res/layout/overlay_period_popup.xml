@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="340dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_clock_pill"
+    android:padding="28dp"
+    android:elevation="16dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tvPopupMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Next period is - Math"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:id="@+id/btnPopupOk"
+        android:layout_width="160dp"
+        android:layout_height="52dp"
+        android:textSize="16sp"
+        android:text="OK" />
+
+</LinearLayout>

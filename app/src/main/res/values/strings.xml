@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Geneo Clock Overlay</string>
+    <string name="setup_subtitle">One-time setup. After this, the clock starts by itself every time the board turns on.</string>
+
+    <string name="step1_title">1. Allow drawing over other apps</string>
+    <string name="status_overlay_needed">Not granted yet — required so the clock can float above every app</string>
+    <string name="status_overlay_granted">Granted ✓</string>
+    <string name="btn_grant_overlay">Grant overlay permission</string>
+
+    <string name="step2_title">2. Exclude from battery optimization (recommended)</string>
+    <string name="btn_ignore_battery">Keep clock running in background</string>
+
+    <string name="step4_title">3. Start</string>
+    <string name="btn_start">Start clock now</string>
+    <string name="btn_stop">Stop</string>
+    <string name="clock_started">Clock started</string>
+    <string name="clock_stopped">Clock stopped</string>
+
+    <string name="note_boot">The clock auto-starts on every boot once overlay permission is granted here — no need to open this app again after setup. Drag the clock anywhere on screen with your finger. When a period ends, a popup + 2-second alarm sound announces the next one.</string>
+    <string name="btn_edit_timetable">Edit Schedule</string>
+    <string name="btn_test_popup">Test Popup Now</string>
+</resources>
