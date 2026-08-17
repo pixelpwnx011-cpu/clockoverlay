@@ -200,8 +200,15 @@ class ClockOverlayService : Service() {
         val endedIndex = schedule.indexOfFirst { it.endMinutes == nowMinutes }
         if (endedIndex == -1) return
 
-        val next = schedule.getOrNull(endedIndex + 1) ?: return // last slot ended, nothing after
-        showPeriodPopup(buildMessage(next.label))
+        val endedSlot = schedule[endedIndex]
+        val next = schedule.getOrNull(endedIndex + 1)
+        if (next != null) {
+            showPeriodPopup(buildMessage(next.label))
+        } else {
+            // Last slot of the day ended (Extra Class by default) -- no "next"
+            // period to announce, so show a completion reminder instead.
+            showPeriodPopup("${endedSlot.label} is over")
+        }
     }
 
     /** "Period N" slots get the exact requested phrasing with just the number; any

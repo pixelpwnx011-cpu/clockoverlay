@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.GeneoClockOverlay" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <!-- Fixed dark theme (not DayNight) -- the app's own screens (setup, schedule
+         editor) always use this, regardless of the board's system theme setting.
+         The floating clock and period popup are styled separately in their own
+         layouts (white pill, black text) since they need to stay readable over
+         whatever app content is behind them, independent of this theme. -->
+    <style name="Theme.GeneoClockOverlay" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/accent_primary</item>
+        <item name="colorPrimaryDark">@color/dark_background</item>
+        <item name="colorAccent">@color/accent_primary</item>
+        <item name="colorSurface">@color/dark_surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:windowBackground">@color/dark_background</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:navigationBarColor">@color/dark_background</item>
+        <item name="materialButtonStyle">@style/Widget.GeneoClockOverlay.Button</item>
+    </style>
+
+    <style name="Widget.GeneoClockOverlay.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/accent_primary</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
 </resources>
