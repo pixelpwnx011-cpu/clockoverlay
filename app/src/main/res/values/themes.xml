@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Fixed dark theme (not DayNight) -- the app's own screens (setup, schedule
+    <!-- Fixed dark theme (not DayNight): the app's own screens (setup, schedule
          editor) always use this, regardless of the board's system theme setting.
          The floating clock and period popup are styled separately in their own
          layouts (white pill, black text) since they need to stay readable over
