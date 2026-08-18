@@ -189,12 +189,15 @@ class ClockOverlayService : Service() {
     // ---------- period-end popup (editable schedule from Prefs) ----------
 
     /** Runs once a minute. If the clock's minute just crossed a schedule slot's end
-     *  time, shows a popup + 2-second alarm sound announcing the next slot. */
+     *  time, shows a popup + bell sound announcing the next slot -- unless the
+     *  person has turned reminders off from the setup screen. */
     private fun checkPeriodTransition() {
         val cal = Calendar.getInstance()
         val nowMinutes = cal.get(Calendar.HOUR_OF_DAY) * 60 + cal.get(Calendar.MINUTE)
         if (nowMinutes == lastCheckedMinute) return
         lastCheckedMinute = nowMinutes
+
+        if (!Prefs.isReminderEnabled(this)) return
 
         val schedule = Prefs.getSchedule(this)
         val endedIndex = schedule.indexOfFirst { it.endMinutes == nowMinutes }

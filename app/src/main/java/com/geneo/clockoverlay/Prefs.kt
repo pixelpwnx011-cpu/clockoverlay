@@ -40,6 +40,7 @@ object Prefs {
     private const val KEY_Y = "overlay_y"
     private const val KEY_ENABLED = "enabled"
     private const val KEY_SCHEDULE = "schedule"
+    private const val KEY_REMINDER_ENABLED = "reminder_enabled"
 
     private fun prefs(ctx: Context) = ctx.getSharedPreferences(FILE, Context.MODE_PRIVATE)
 
@@ -53,6 +54,15 @@ object Prefs {
     fun isEnabled(ctx: Context) = prefs(ctx).getBoolean(KEY_ENABLED, false)
     fun setEnabled(ctx: Context, value: Boolean) {
         prefs(ctx).edit().putBoolean(KEY_ENABLED, value).apply()
+    }
+
+    // ---------- period reminders on/off ----------
+    // Independent of the clock itself -- lets the popup + bell be silenced without
+    // stopping the whole overlay. Defaults to on (matches original behavior).
+
+    fun isReminderEnabled(ctx: Context) = prefs(ctx).getBoolean(KEY_REMINDER_ENABLED, true)
+    fun setReminderEnabled(ctx: Context, value: Boolean) {
+        prefs(ctx).edit().putBoolean(KEY_REMINDER_ENABLED, value).apply()
     }
 
     // ---------- daily schedule ----------

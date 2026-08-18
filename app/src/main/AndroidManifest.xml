@@ -22,7 +22,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.GeneoClockOverlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -32,6 +33,7 @@
         <activity
             android:name=".ScheduleEditorActivity"
             android:exported="false"
+            android:theme="@style/Theme.GeneoClockOverlay"
             android:label="Edit Schedule" />
 
         <service

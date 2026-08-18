@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity() {
             }
             ClockOverlayService.testPopup(this)
         }
+        binding.switchReminders.isChecked = Prefs.isReminderEnabled(this)
+        binding.switchReminders.setOnCheckedChangeListener { _, checked ->
+            Prefs.setReminderEnabled(this, checked)
+        }
     }
 
     override fun onResume() {
